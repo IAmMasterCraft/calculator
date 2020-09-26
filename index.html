@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        <title>Simple Calculator</title>
+
+        <style>
+
+            table {
+
+                margin: auto;
+
+                border-collapse: collapse;
+
+                background-color: black;
+
+                font-weight: bold;
+
+                width: 300px;
+
+                height: 300px;
+
+            }
+
+            
+
+            td {
+
+                border: 1.5px dotted transparent;
+
+                margin: auto;
+
+            }
+
+            
+
+            button {
+
+                background-color: #333333;
+
+                border-radius: 70px;
+
+                border-color: transparent;
+
+                color: #dedede;
+
+                width: 70px;
+
+                height: 70px;
+
+                margin: 10px;
+
+                font-size: 40px;
+
+            }
+
+            .result-section {
+
+                margin: auto;
+
+                /*border: 2px solid black;*/
+
+                text-align: right;
+
+                color: white;
+
+                width: 357px;
+
+                height: 100px;
+
+                background-color: black;
+
+                font-size: 40px;
+
+                padding: 15px 15px 0 0;
+
+            }
+
+            
+
+            .background {
+
+                /*background-color: black;*/
+
+                margin: auto;
+
+            }
+
+            
+
+            .operators {
+
+                background-color: #ff9f0a;
+
+            }
+
+            
+
+            .miscellanous {
+
+                background-color: #a6a6a6;
+
+                color: black;
+
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div class="background">
+
+            <div class="result-section">
+
+                <div class="calculations">
+
+                    <span class="data">{{data}}</span>
+
+                </div>
+
+                <div class="expression">{{expression}}</div>
+
+            </div>
+
+            <div class="engine-section">
+
+                <table>
+
+                    <tr>
+
+                        <td><button class="miscellanous" onclick="fillTemp(this.innerHTML)">(</button></td>
+
+                        <td><button class="miscellanous" onclick="fillTemp(this.innerHTML)">)</button></td>
+
+                        <td><button class="miscellanous" onclick="fillTemp(' % ')">&percnt;</button></td>
+
+                        <td><button class="miscellanous" onclick="deleteExpression()">C</button></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td><button onclick="fillTemp(this.innerHTML)">7</button></td>
+
+                        <td><button onclick="fillTemp(this.innerHTML)">8</button></td>
+
+                        <td><button onclick="fillTemp(this.innerHTML)">9</button></td>
+
+                        <td><button class="operators" onclick="fillTemp(' / ')">&divide;</button></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td><button onclick="fillTemp(this.innerHTML)">4</button></td>
+
+                        <td><button onclick="fillTemp(this.innerHTML)">5</button></td>
+
+                        <td><button onclick="fillTemp(this.innerHTML)">6</button></td>
+
+                        <td><button class="operators" onclick="fillTemp(' * ')">&times;</button></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td><button onclick="fillTemp(this.innerHTML)">1</button></td>
+
+                        <td><button onclick="fillTemp(this.innerHTML)">2</button></td>
+
+                        <td><button onclick="fillTemp(this.innerHTML)">3</button></td>
+
+                        <td><button class="operators" onclick="fillTemp(' - ')">&minus;</button></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td><button onclick="fillTemp(this.innerHTML)">.</button></td>
+
+                        <td><button onclick="fillTemp(this.innerHTML)">0</button></td>
+
+                        <td><button class="operators" onclick="finalEvaluation()">=</button></td>
+
+                        <td><button class="operators" onclick="fillTemp(' + ')">&plus;</button></td>
+
+                    </tr>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <script>
+
+            function fillTemp (val) {
+
+                const expression = document.getElementsByClassName("expression")[0];
+
+                const data = document.getElementsByClassName("data")[0];
+
+                data.style.fontWeight = "normal";
+
+                if (expression.innerHTML != "{{expression}}") {
+
+                    if (expression.innerHTML.includes(".") && val == ".") {
+
+                        expression.innerHTML = expression.innerHTML;
+
+                        try {
+
+                            data.innerHTML = eval(expression.innerHTML);
+
+                        }
+
+                        catch (e) {
+
+                            console.log(e.message);
+
+                        }
+
+                    }
+
+                    else {
+
+                        expression.innerHTML = expression.innerHTML + val;
+
+                        try {
+
+                            data.innerHTML = eval(expression.innerHTML);
+
+                        }
+
+                        catch (e) {
+
+                            console.log(e.message);
+
+                        }
+
+                    }
+
+                }
+
+                else {
+
+                    expression.innerHTML = val;
+
+                    try {
+
+                        data.innerHTML = eval(expression.innerHTML);
+
+                    }
+
+                    catch (e) {
+
+                        console.log(e.message);
+
+                    }
+
+                }
+
+            }
+
+            
+
+            function finalEvaluation () {
+
+                const expression = document.getElementsByClassName("expression")[0];
+
+                const data = document.getElementsByClassName("data")[0];
+
+                expression.innerHTML = "";
+
+                data.innerHTML = "Ans = " + data.innerHTML;
+
+                data.style.fontWeight = "bold";
+
+            }
+
+            
+
+            function deleteExpression(){
+
+                const expression = document.getElementsByClassName("expression")[0];
+
+                if (expression.innerHTML != "{{expression}}") {
+
+                    expression.innerHTML = expression.innerHTML.slice(0, -1);
+
+                }
+
+            }
+
+        </script>
+
+    </body>
+
+</html>
